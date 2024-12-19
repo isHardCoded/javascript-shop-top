@@ -44,14 +44,32 @@ let products = [
 		description: 'Описание игровой клавиатуры',
 		price: 2000,
 	},
+	{
+		name: 'Игровое кресло',
+		description: 'Описание игровой клавиатуры',
+		price: 2000,
+	},
+	{
+		name: 'Игровое кресло',
+		description: 'Описание игровой клавиатуры',
+		price: 2000,
+	},
 ]
 
 let cart = []
 
-function renderProduct() {
-	const productsList = document.querySelector('.products__content')
+const itemsPerPage = 9
+let currentPage = 1
 
-	products.forEach((product, index) => {
+function renderProduct() {
+	const start = (currentPage - 1) * itemsPerPage
+	const end = start + itemsPerPage
+	const productsToShow = products.slice(start, end)
+
+	const productsList = document.querySelector('.products__content')
+	productsList.innerHTML = ''
+
+	productsToShow.forEach((product, index) => {
 		const productCard = document.createElement('div')
 
 		productCard.classList.add('product__card')
@@ -67,7 +85,33 @@ function renderProduct() {
 
 		productsList.appendChild(productCard)
 	})
+
+	updatePagination()
 }
+
+function updatePagination() {
+	const totalPages = Math.ceil(products.length / itemsPerPage)
+
+	document.getElementById('currentPage').innerText = currentPage.toString()
+	document.getElementById('prevPage').disabled = currentPage === 1
+	document.getElementById('nextPage').disabled = currentPage === totalPages
+}
+
+document.getElementById('prevPage').addEventListener('click', () => {
+	if (currentPage > 1) {
+		currentPage--
+		renderProduct()
+	}
+})
+
+document.getElementById('nextPage').addEventListener('click', () => {
+	const totalPages = Math.ceil(products.length / itemsPerPage)
+	if (currentPage < totalPages) {
+		currentPage++
+		renderProduct()
+	}
+})
+
 const cartList = document.querySelector('.cart__content')
 
 if (cart.length === 0) {

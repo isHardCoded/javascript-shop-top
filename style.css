@@ -136,3 +136,22 @@
 
 	cursor: pointer;
 }
+
+/* PAGINATION */
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 25px;
+	margin-top: 30px;
+}
+
+.pagination button {
+	outline: 0;
+	border: 0;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 14px;
+	cursor: pointer;
+}
